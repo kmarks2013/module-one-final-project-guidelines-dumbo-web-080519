@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190819141235) do
+ActiveRecord::Schema.define(version: 20190819141924) do
 
   create_table "attendees", force: :cascade do |t|
     t.string  "name"
     t.boolean "cosplay"
     t.string  "costume"
     t.string  "attendee_status"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "attendee_id"
+    t.integer  "merchandise_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end
