@@ -1,5 +1,5 @@
-class Purhcase < ActiveRecord::Base
-    belongs_to :attendees
-    belongs_to :merchandises
+class Purchase < ActiveRecord::Base
+    belongs_to :attendee
+    belongs_to :merchandise
 
 end
