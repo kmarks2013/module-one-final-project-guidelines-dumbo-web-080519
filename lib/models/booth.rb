@@ -2,6 +2,15 @@ class Booth < ActiveRecord::Base
     has_many :merchandises 
     has_many :purchases, through: :merchandises
     has_many :attendees, through: :merchandises
+    attr_accessor :prompt
+
+    def self.selection
+        puts "What is your booth name?"
+        name = gets.chomp
+        Booth.find_by(name: name)
+        # add a conditional to retrun something if a booth doesnt exist.
+    end
+
 
 
     def sale_inventory(name, merchandise_id)
