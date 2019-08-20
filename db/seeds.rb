@@ -15,7 +15,7 @@ dragonball = Booth.create(name: "dragonball" , booth_type: "dragonball")
 
 long_claw = Merchandise.create( name: "Long Claw", description: "Valeryan Steel Sword Replica", price: 50.99, inventory: 15, booth_id: gameofthrones.id)
 dragon_ball = Merchandise.create( name: "Dragon Ball", description: "Golden orb with 4 stars glowing inside", price: 13.99, inventory: 90, booth_id: dragonball.id)
-pokeball = Merchandise.create( name: "Pokeball", description: "Pokemon Storage Device", price: 9.99, inventory: 5, booth_id: pokemon.id)
+pgiokeball = Merchandise.create( name: "Pokeball", description: "Pokemon Storage Device", price: 9.99, inventory: 5, booth_id: pokemon.id)
 pokedex = Merchandise.create(name:"Pokedex", description: "Pokemon Info", price: 100.00, inventory: 1000, booth_id: pokemon.id)
 eevee_plushie = Merchandise.create(name: "Eevee Plushie", description: "Sofft cuddly doll", price: 7.50, inventory:8, booth_id: pokemon.id)
 dragon_glass = Merchandise.create(name: "Dragon Glass", description: "Obsidian dagger", price: 150.99, inventory: 20, booth_id: gameofthrones.id)

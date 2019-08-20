@@ -11,5 +11,17 @@ class Attendee < ActiveRecord::Base
         (self.merchandieses.map {|merch| merch.price}).sum
     end
     
-    #booths visited
+    def booths_visited
+        #should return an array of which booth he visited
+    end
 end
+
+
+
+# what would you like to do      possible attendee menus and submenus
+#     see total purchases
+#     return an item
+#     find a booth
+#     check teh inventory of other items
+#         buy selected item
+#         
