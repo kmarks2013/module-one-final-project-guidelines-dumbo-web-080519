@@ -23,13 +23,20 @@ class Merchandise < ActiveRecord::Base
         self.price = price
     end 
 
-    sales = 0
+    
 
     def create_purchase(attendee_id)
         #creates a new purchase with an attendee and subtracts one from the inventory
         Purchase.create(attendee_id: attendee_id, merchandise_id: self.id)
         self.inventory -= 1
-        #create a counter to make number of sales
+       
+    end
+
+    def refund(attendee_id)
+        purchase = self.purchases.find_by(attendee_id: attendee_id)
+        purchase.destroy
+        self.inventory += 1
+
     end
 
 

@@ -19,33 +19,44 @@ class Booth < ActiveRecord::Base
             end
         end
     end
+    
+
 
     def check_merchandise
         #returns an array/list of all the merchandise available
-        self.merchandises
+        self.merchandises.map {|merchandise| merchandise.name }
     end
 
     def sales_made 
-        self.purchases 
+        self.purchases.map { |purchase| purchase.merchandise.name }
     end
+
     def number_of_sales
         #helpter method for sales revenues
-        
+        self.sales_made.count
     end
+
+
 
     def sales_revenue
-        #takes price* 
-        self.number_of_sales
+        self.purchases.reduce(0) {|sum,purchase| sum += purchase.merchandise.price}
     end
     
-    def number_attendees
-        #checks how the booth or bought from the booth
-    end
+    # def number_attendees
+    #     #checks how the booth or bought from the booth. This would have to be unique 
+    # end
 
-    def issue_refund 
-        #delete a purchase 
-        # update inventory/add to inventory += 1 to reflect the refund
-    end
+
+    #WE WILL REVISIT AFTER IMPLEMENTING TTY PROMPT. 
+    # def issue_refund(attendee_id, name) 
+        
+    #     purchase = self.purchases.find_by(attendee_id: attendee_id)
+    #     if purchase.merchandise_id = self.merchandises.name.id
+    #         purchase.destroy
+    #         self.merchandises.name.inventory += 1
+    #     end
+    # end
+
 
 
 

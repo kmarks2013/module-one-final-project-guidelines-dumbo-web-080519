@@ -1,6 +1,7 @@
 class Attendee < ActiveRecord::Base
     has_many :purchases
     has_many :merchandises, through: :purchases
+    has_many :booths , through: :purchases
 
     def specific_purchase(item_name)
         self.merchandises.find_by(name: item_name)
