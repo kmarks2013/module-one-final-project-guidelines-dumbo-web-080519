@@ -21,6 +21,11 @@ class Attendee < ActiveRecord::Base
         Merchandise.all
     end
 
+    def merchandise_names
+       merch = self.all_merchandise.map {|merchandise| merchandise.name}
+        puts merch
+    end
+
     def select_merchandise(item_name)
         self.all_merchandise.find do |merchandise|
             merchandise.name == item_name
@@ -33,21 +38,16 @@ class Attendee < ActiveRecord::Base
         merch.inventory -= 1
     end
 
-    def return_item(item_name)
-        merch = self.specific_purchase(item_name)
-        purchase = self.purchases.find_by(merchandise_id: merch.id)
-        purchase.destroy
-        merch.inventory += 1
-    end
-
+  
 
     def specific_purchase(item_name)
-        self.merchandises.find_by(name: item_name)
+        Purchase.find_by(attendee_id: self.id, merchandise_id: self.select_merchandise(item_name).id)
+        # self.merchandises.find_by(name: item_name)
         #maybe return booth id from purchases
     end
     
     def total_spent
-        total_spent =(self.merchandieses.map {|merch| merch.price}).sum
+        total_spent =(self.merchandises.map {|merch| merch.price}).sum
         puts total_spent
     end
     
@@ -67,15 +67,35 @@ class Attendee < ActiveRecord::Base
     end
 
     def items_purchased
-        items =see_purchases.map do |merchandise|
+        items = see_purchases.map do |merchandise|
             merchandise.name
         end
         puts items
     end
-
-
-
-
+    #hashing see_purchases
+    def return_item
+        items = self.see_purchases.map do |merchandise|
+            {name: merchandise.name, merch_id: merchandise.id}
+        end
+        merch = TTY::Prompt.new.select("Here is a list of your purchases. What would you like to return?",items)
+        purchase = self.specific_purchase(merch)
+        purchase.destroy 
+        puts "your item has been refunded!"
+        restock = self.select_merchandise(merch)
+        restock.inventory += 1
+    end
+    
+    # def return_item
+    #     merch = TTY::Prompt.new.select("What would you like to return") do |menu|
+    #         menu.choice "#{self.items_purchased}"
+    #     end
+    #         # merch = self.specific_purchase
+    #         purchase = self.purchases.find_by(merchandise_id: merch.id)
+    #         purchase.destroy
+    #         merch.inventory += 1
+    # end
+    
+    
 end
 
 

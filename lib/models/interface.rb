@@ -9,23 +9,38 @@ class Interface
     def welcome
         puts "Welcome to Comic Con!"
         prompt.select("Are you an attendee or a booth") do |menu|
-            menu.choice "Attendee", -> {Attendee.selection}
+            menu.choice "Attendee", -> {Attendee.returning_attendee}
             menu.choice "Booth", -> {Booth.selection}
         end
 
     end
 
+    # welcome method should returning user or new user which leads to new attendee/newbooth or returning booth.new booth
 
     def booth_main_menu
         prompt.select("Welcome Booth Operator, what would you like to do today?" ) do |menu|
-            menu.choice "view merchandise", -> {self.user.check_merchandise}
-            menu.choice "update inventory", -> {self.user.add_to_inventory}
-            menu.choice "list of customers", -> {self.user.list_of_attendees}
-            menu.choice "number of sales", -> {self.user.number_of_sales}
-            menu.choice "items sold", -> {self.user.sales_made}
-            menu.choice "sales revenue", -> {self.user.sales_revenue}
+            menu.choice "View Merchandise", -> {self.user.check_merchandise}
+            menu.choice "Update Inventory", -> {self.user.add_to_inventory}
+            menu.choice "List of Customers", -> {self.user.list_of_attendees}
+            menu.choice "Mumber of Sales", -> {self.user.number_of_sales}
+            menu.choice "Items Sold", -> {self.user.sales_made}
+            menu.choice "Sales Revenue", -> {self.user.sales_revenue}
         end
     end
+
+    def attendee_main_menu
+        prompt.select("HELLO attendee") do |menu|
+            menu.choice "Find Merchandise", -> {self.user.merchandise_names}
+            menu.choice "See Booths Visited", -> {self.user.booths_visited}
+            menu.choice "Buy Item", -> {self.user.buy_item}
+            menu.choice "Return Item", -> {self.user.return_item}
+            menu.choice "Total Spent", -> {self.user.total_spent}
+        end
+    end
+
+    
+#somewhere in that method add purchases to attendee
+
 #ISSUE WHEN UPDATING INVENTORY 
 #couldn't add argument
     # Welcome Booth Operator, what would you like to do today? update inventory
