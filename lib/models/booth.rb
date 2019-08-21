@@ -1,4 +1,5 @@
 class Booth < ActiveRecord::Base
+    
     has_many :merchandises 
     has_many :purchases, through: :merchandises
     has_many :attendees, through: :merchandises
@@ -7,11 +8,28 @@ class Booth < ActiveRecord::Base
     def self.selection
         puts "What is your booth name?"
         name = gets.chomp
-        Booth.find_by(name: name)
+        if !Booth.find_by(name: name)
+            puts "Please try another name"
+            name = gets.chomp
+        else 
+            Booth.find_by(name: name)
+        end
         # add a conditional to retrun something if a booth doesnt exist.
+        # name = TTY::Prompt.new.ask("What is your booth name?"){ |q| q.validate name: }
+    end
+    
+    def self.register_booth(name, booth_type)
+        Booth.new(name: name, booth_type:booth_type)
+    end
+
+    def sell_merchandise(attendee_id, merchandise_id)
+        Purchase.create(attendee_id: attendee_id, merchandise_id: merchandise_id)
     end
 
 
+    def create_merchandise(name, description, price, inventory)
+        Merchandise.new(name: name, description: description, inventory: inventory, booth_id: self)
+    end
 
     def sale_inventory(name, merchandise_id)
         #updates inventory everytime a purchase is made or when merchandise is reduced from purchase
@@ -19,9 +37,10 @@ class Booth < ActiveRecord::Base
     end
 
     
-
-    def add_to_inventory(item_name,num )
-        #add new items to inventory
+    # (item_name,num )
+    def add_to_inventory
+        item_name = TTY::Prompt.new.ask("What item would you like to restock?")
+        num = TTY::Prompt.new.ask("How many are you adding to the inventory?")
         self.check_merchandise.select do |merchandise|
             if merchandise.name == item_name 
                 item_name.inventory += num 
@@ -30,27 +49,38 @@ class Booth < ActiveRecord::Base
     end
     
 
-
     def check_merchandise
         #returns an array/list of all the merchandise available
-        self.merchandises.map {|merchandise| merchandise.name }
+       merchandise =  self.merchandises.map {|merchandise| merchandise.name }
+       puts merchandise
+    end
+
+    def all_purchases
+        self.purchases
     end
 
     def sales_made 
-        self.purchases.map { |purchase| purchase.merchandise.name }
+        sales = all_purchases.map { |purchase| purchase.merchandise.name }
+        puts sales
     end
 
     def number_of_sales
         #helpter method for sales revenues
-        self.sales_made.count
+        total_sales = self.all_purchases.count
+        puts total_sales
     end
-
-
 
     def sales_revenue
-        self.purchases.reduce(0) {|sum,purchase| sum += purchase.merchandise.price}
+        revenue = all_purchases.reduce(0) {|sum,purchase| sum += purchase.merchandise.price}
+        puts revenue
     end
     
+    def list_of_attendees
+        attendees = self.attendees.map {|attendee| attendee.name} 
+        puts attendees
+    end
+
+
     # def number_attendees
     #     #checks how the booth or bought from the booth. This would have to be unique 
     # end

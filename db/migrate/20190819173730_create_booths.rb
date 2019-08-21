@@ -1,7 +1,7 @@
 class CreateBooths < ActiveRecord::Migration[5.0]
   def change
     create_table :booths do |t|
-      t.string :name 
+      t.string :name
       t.string :booth_type
       
     end

@@ -9,7 +9,7 @@ class Interface
     def welcome
         puts "Welcome to Comic Con!"
         prompt.select("Are you an attendee or a booth") do |menu|
-            menu.choice "Attendee"#, -> { Attendee.main_menu }
+            menu.choice "Attendee", -> {Attendee.selection}
             menu.choice "Booth", -> {Booth.selection}
         end
 
@@ -18,15 +18,20 @@ class Interface
 
     def booth_main_menu
         prompt.select("Welcome Booth Operator, what would you like to do today?" ) do |menu|
-            menu.choice "all merchandise", -> {self.check_merchandise}
+            menu.choice "view merchandise", -> {self.user.check_merchandise}
+            menu.choice "update inventory", -> {self.user.add_to_inventory}
+            menu.choice "list of customers", -> {self.user.list_of_attendees}
+            menu.choice "number of sales", -> {self.user.number_of_sales}
+            menu.choice "items sold", -> {self.user.sales_made}
+            menu.choice "sales revenue", -> {self.user.sales_revenue}
         end
     end
-    
-    # def  booth_selection
-    #     puts "What is your booth name?"
-    #     name = gets.chomp
-    #     Booth.find_by(name: name)
-    #     # add a conditional to retrun something if a booth doesnt exist.
-    # end
+#ISSUE WHEN UPDATING INVENTORY 
+#couldn't add argument
+    # Welcome Booth Operator, what would you like to do today? update inventory
+    #     What item would you like to restock? Pokeball
+    #     How many are you adding to the inventory? 100
+
+
 
 end
