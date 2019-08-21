@@ -8,12 +8,12 @@ class Booth < ActiveRecord::Base
     def self.selection
         puts "What is your booth name?"
         name = gets.chomp
-        if !Booth.find_by(name: name)
+        while !Booth.find_by(name: name) do 
             puts "Please try another name"
             name = gets.chomp
-        else 
-            Booth.find_by(name: name)
         end
+        Booth.find_by(name: name)
+        
         # add a conditional to retrun something if a booth doesnt exist.
         # name = TTY::Prompt.new.ask("What is your booth name?"){ |q| q.validate name: }
     end

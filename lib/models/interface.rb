@@ -32,7 +32,8 @@ class Interface
         prompt.select("HELLO attendee") do |menu|
             menu.choice "Find Merchandise", -> {self.user.merchandise_names}
             menu.choice "See Booths Visited", -> {self.user.booths_visited}
-            menu.choice "Buy Item", -> {self.user.buy_item}
+            menu.choice "Buy Item by name", -> {self.user.buy_item}
+            menu.choice "Visit Booths", ->{self.user.visit_booths}
             menu.choice "Return Item", -> {self.user.return_item}
             menu.choice "Total Spent", -> {self.user.total_spent}
         end
