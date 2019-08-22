@@ -11,22 +11,14 @@ class Attendee < ActiveRecord::Base
             puts "We could not find that name! Please try again!"
             name = gets.chomp.capitalize
             Attendee.find_by(name: name)
-            # cli.welcomee
-            # self.returning_attendee until Attendee.find_by(name: name) == !nil
         else 
             Attendee.find_by(name: name)
         end
-        # add a conditional to retrun something if a booth doesnt exist.
-        # name = TTY::Prompt.new.ask("What is your booth name?"){ |q| q.validate name: }
     end
 
     def all_merchandise
         Merchandise.all
     end
-
-    # def all_booths
-    #     Booth.all
-    # end
 
     def select_booth(booth_name)
         Booth.all.find do |booth|
@@ -44,7 +36,6 @@ class Attendee < ActiveRecord::Base
         booths = self.booth_menu_hash
         booth_choice = TTY::Prompt.new.select("Which booth would you like to visit?",booths)
         booth_selection = self.select_booth(booth_choice)
-        #BRB
         
         merch = booth_selection.merch_menu_hash
         merch_choice = TTY::Prompt.new.select("What would like to purchase", merch)
@@ -69,7 +60,6 @@ class Attendee < ActiveRecord::Base
     
     def specific_purchase(item_name)
         Purchase.find_by(attendee_id: self.id, merchandise_id: self.select_merchandise(item_name).id)
-
     end
     
     def total_spent
@@ -83,8 +73,6 @@ class Attendee < ActiveRecord::Base
             booth.name
         end.uniq
         puts booth_names
-        #instead of uniq, if the person visited a booth mroe than once, raise a message
-        #"WOW YOU REALLY LVOE THIS #{STAND_NAME}"
     end
 
     def see_purchases
@@ -93,12 +81,13 @@ class Attendee < ActiveRecord::Base
         end
     end
     
-    def items_purchased
-        items = see_purchases.map do |merchandise|
-            merchandise.name
-        end
-        puts items
-    end
+    # def items_purchased
+    #     items = see_purchases.map do |merchandise|
+    #         merchandise.name
+    #     end
+    #     puts items
+    # end
+    # didn't implement into the menus yet but the method
     
     def return_item
         items = self.see_purchases.map do |merchandise|
@@ -124,26 +113,5 @@ class Attendee < ActiveRecord::Base
         stock.update(inventory: stock.inventory - 1)
      
     end
-
-    # def return_item
-    #     merch = TTY::Prompt.new.select("What would you like to return") do |menu|
-    #         menu.choice "#{self.items_purchased}"
-    #     end
-    #         # merch = self.specific_purchase
-    #         purchase = self.purchases.find_by(merchandise_id: merch.id)
-    #         purchase.destroy
-    #         merch.inventory += 1
-    # end
-    
     
 end
-
-
-
-# what would you like to do      possible attendee menus and submenus
-#     see total purchases
-#     return an item
-#     find a booth
-#     check teh inventory of other items
-#         buy selected item
-#         

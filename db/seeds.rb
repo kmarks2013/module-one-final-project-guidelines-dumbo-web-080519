@@ -9,9 +9,9 @@ joel = Attendee.create(name: "Joel", cosplay: false, attendee_status: "Press")
 matt = Attendee.create(name: "Matt", cosplay: true, costume: "Hulk", attendee_status: "Non-Press")
 shane = Attendee.create(name: "Shane", cosplay: true, costume:"Jon Snow, King of the North", attendee_status: "Non-press")
 
-pokemon = Booth.create(name: "Pokemon", booth_type: "toys" )
-gameofthrones = Booth.create(name: "Game of Thrones", booth_type: "collectibles")
-dragonball = Booth.create(name: "Dragonball" , booth_type: "dragonball")
+pokemon = Booth.create(name: "Pokemon", booth_type: "Toys" )
+gameofthrones = Booth.create(name: "Gameofthrones", booth_type: "Collectibles")
+dragonball = Booth.create(name: "Dragonball" , booth_type: "Dragonball Collectibles")
 
 long_claw = Merchandise.create( name: "Long Claw", description: "Valeryan Steel Sword Replica", price: 50.99, inventory: 15, booth_id: gameofthrones.id)
 dragon_ball = Merchandise.create( name: "Dragon Ball", description: "Golden orb with 4 stars glowing inside", price: 13.99, inventory: 90, booth_id: dragonball.id)
@@ -30,4 +30,3 @@ p7 = Purchase.create(attendee_id: brian.id, merchandise_id: pokedex.id)
 p5 = Purchase.create(attendee_id: brian.id, merchandise_id: eevee_plushie.id)
 p6 = Purchase.create(attendee_id: shane.id, merchandise_id: needle.id)
 
-# shane.merchandises.find_by(name: "Pokedex")

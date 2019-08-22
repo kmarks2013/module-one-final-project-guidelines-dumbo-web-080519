@@ -15,10 +15,6 @@ class Booth < ActiveRecord::Base
         else
             Booth.find_by(name: name)
         end
-        # Booth.find_by(name: name)
-        
-        # add a conditional to retrun something if a booth doesnt exist.
-        # name = TTY::Prompt.new.ask("What is your booth name?"){ |q| q.validate name: }
     end
     
     def self.register_booth(name, booth_type)
@@ -35,12 +31,10 @@ class Booth < ActiveRecord::Base
     end
 
     def sale_inventory(name, merchandise_id)
-        #updates inventory everytime a purchase is made or when merchandise is reduced from purchase
         Purchase.create(attendee_id: name, merchandise_id: merchandise_id)
     end
     
     def check_merchandise
-        #returns an array/list of all the merchandise available
        merchandise =  self.merchandises.map {|merchandise| merchandise.name }
        puts merchandise 
        return merchandise
@@ -51,12 +45,13 @@ class Booth < ActiveRecord::Base
             merch.name == merch_name
         end
     end
-    # (item_name,num )
+
     def add_to_inventory
         item_name = TTY::Prompt.new.ask("What item would you like to restock?").capitalize
         num = TTY::Prompt.new.ask("How many are you adding to the inventory?")
         stock = self.select_merch(item_name)
         stock.update(inventory: stock.inventory + num.to_i)
+        puts "You now have #{stock.inventory} units of #{item_name} in stock."
     end
 
     def merch_menu_hash
@@ -64,8 +59,6 @@ class Booth < ActiveRecord::Base
             {name: merchandise.name, merch_id: merchandise.id}
         end
     end
-    
-   
 
     def sales_made 
         sales = self.purchases.map { |purchase| purchase.merchandise.name }
@@ -73,7 +66,6 @@ class Booth < ActiveRecord::Base
     end
 
     def number_of_sales
-        #helpter method for sales revenues
         total_sales = self.purchases.count
         puts total_sales
     end
@@ -87,38 +79,7 @@ class Booth < ActiveRecord::Base
         attendees = (self.attendees.map {|attendee| attendee.name}).uniq
         puts attendees
     end
-
-
-    # def number_attendees
-    #     #checks how the booth or bought from the booth. This would have to be unique 
-    # end
-
-
-    #WE WILL REVISIT AFTER IMPLEMENTING TTY PROMPT. 
-    # def issue_refund(attendee_id, name) 
-        
-    #     purchase = self.purchases.find_by(attendee_id: attendee_id)
-    #     if purchase.merchandise_id = self.merchandises.name.id
-    #         purchase.destroy
-    #         self.merchandises.name.inventory += 1
-    #     end
-    # end
-
-
-
-
 end
 
-
-# PRIORITY CLI
-# possible booth menu/ submenus
-# check inventory (list or chocie?)
-# restock inventory
-# numbers of sales
-# revenue ........later on consider profit *(revenue - expenses) maybe lease expenses... etc 
-# number of patrons unique sales
-
-#list of attendees
-#sale (subtracts from )
 
 
