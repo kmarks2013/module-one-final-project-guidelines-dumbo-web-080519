@@ -7,10 +7,11 @@ cli.user = user_object
 
 # choice = cli.booth_main_menu
 # choice = cli.attendee_main_menu
-
+system "clear"
 if user_object.class == Attendee
     cli.attendee_main_menu
-else 
+end
+if user_object.class == Booth
     cli.booth_main_menu
 end
 # if cli.user == "Attendee"
@@ -20,5 +21,5 @@ end
 # end
 
 # if Interface.
-binding.pry
-puts "HELLO WORLD"
+# binding.pry
+# puts "HELLO WORLD"

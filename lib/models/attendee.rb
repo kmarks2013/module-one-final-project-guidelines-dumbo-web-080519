@@ -8,8 +8,11 @@ class Attendee < ActiveRecord::Base
         puts "What is your name?"
         name = gets.chomp.capitalize
         if !Attendee.find_by(name: name)
-            puts "Please try another name"
+            puts "We could not find that name! Please try again!"
             name = gets.chomp.capitalize
+            Attendee.find_by(name: name)
+            # cli.welcomee
+            # self.returning_attendee until Attendee.find_by(name: name) == !nil
         else 
             Attendee.find_by(name: name)
         end
@@ -19,6 +22,37 @@ class Attendee < ActiveRecord::Base
 
     def all_merchandise
         Merchandise.all
+    end
+
+    # def all_booths
+    #     Booth.all
+    # end
+
+    def select_booth(booth_name)
+        Booth.all.find do |booth|
+            booth.name == booth_name
+        end
+    end
+
+    def booth_menu_hash
+        Booth.all.map do |booth|
+            {name: booth.name, booth_id: booth.id}
+        end
+    end
+    
+    def visit_booths
+        booths = self.booth_menu_hash
+        booth_choice = TTY::Prompt.new.select("Which booth would you like to visit?",booths)
+        booth_selection = self.select_booth(booth_choice)
+        #BRB
+        
+        merch = booth_selection.merch_menu_hash
+        merch_choice = TTY::Prompt.new.select("What would like to purchase", merch)
+        Purchase.create(attendee_id: self.id, merchandise_id: booth_selection.select_merch(merch_choice).id)
+        
+        puts "Thank you for buying #{merch_choice} from #{booth_choice}"
+        stock = booth_selection.select_merch(merch_choice)
+        stock.update(inventory: stock.inventory - 1)
     end
 
     def merchandise_names
@@ -35,8 +69,7 @@ class Attendee < ActiveRecord::Base
     
     def specific_purchase(item_name)
         Purchase.find_by(attendee_id: self.id, merchandise_id: self.select_merchandise(item_name).id)
-        # self.merchandises.find_by(name: item_name)
-        #maybe return booth id from purchases
+
     end
     
     def total_spent
@@ -44,19 +77,8 @@ class Attendee < ActiveRecord::Base
         puts total_spent
     end
 
-    def visit_booths
-        booths = Booth.all.map do |booth|
-            {name: booth.name, booth_id: booth.id}
-        end
-        booth_selection = TTY::Prompt.new.select("Which booth would you like to visit?",booths)
-        #BOOTH SELECTION NEEDS TO BE TRANSFERED TO A BOOTH OBJECT NOT A STRING!!!!!
-        booth_selection.merchandises.map do |merchandise|
-
-            {name: merchandise.name, merch_id: merchandise.id}
-        end
-        
-    end
-    def booths_visited #TTY promt this m**tha F8ka
+    
+    def booths_visited 
         booth_names = self.booths.map do |booth|
             booth.name
         end.uniq

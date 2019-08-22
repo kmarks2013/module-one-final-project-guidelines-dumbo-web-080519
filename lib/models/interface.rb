@@ -30,7 +30,7 @@ class Interface
 
     def attendee_main_menu
         prompt.select("HELLO attendee") do |menu|
-            menu.choice "Find Merchandise", -> {self.user.merchandise_names}
+            menu.choice "See all Merchandise Available", -> {self.user.merchandise_names}
             menu.choice "See Booths Visited", -> {self.user.booths_visited}
             menu.choice "Buy Item by name", -> {self.user.buy_item}
             menu.choice "Visit Booths", ->{self.user.visit_booths}
