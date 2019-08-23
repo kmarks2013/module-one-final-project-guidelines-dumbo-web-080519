@@ -10,15 +10,10 @@
     4. Seed the database
     5. Run "ruby bin/run.rb" in the console
 
-## Contributors Guide
-    Kenny Marks and Brian Wong
-    
-    Find us at github.
-    Kenny Marks - https://github.com/kmarks2013
-    Brian Wong  - https://github.com/brianw921
+## Other Information
 
-## License for Code
-    https://github.com/kmarks2013/module-one-final-project-guidelines-dumbo-web-080519/settings/collaboration
+####[Contributors Guide](https://github.com/kmarks2013/module-one-final-project-guidelines-dumbo-web-080519/blob/master/CONTRIBUTING.md)
+####[License](https://github.com/kmarks2013/module-one-final-project-guidelines-dumbo-web-080519/blob/master/LICENSE.md_)
 
 
 ## Video Descirpiton
