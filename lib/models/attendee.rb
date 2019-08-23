@@ -41,7 +41,13 @@ class Attendee < ActiveRecord::Base
         merch_choice = TTY::Prompt.new.select("What would like to purchase", merch)
         Purchase.create(attendee_id: self.id, merchandise_id: booth_selection.select_merch(merch_choice).id)
         
-        puts "Thank you for buying #{merch_choice} from #{booth_choice}"
+        puts ""
+        puts "#{booth_choice} Receipt"
+        puts ""
+        puts "You have bought #{merch_choice}!"
+        puts ""
+        puts "Your total is today $#{booth_selection.select_merch(merch_choice).price}!"
+        puts ""
         stock = booth_selection.select_merch(merch_choice)
         stock.update(inventory: stock.inventory - 1)
     end
@@ -111,6 +117,7 @@ class Attendee < ActiveRecord::Base
         
         stock = self.select_merchandise(merch)
         stock.update(inventory: stock.inventory - 1)
+
      
     end
     

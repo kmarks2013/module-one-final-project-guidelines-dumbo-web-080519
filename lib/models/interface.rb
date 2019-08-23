@@ -15,7 +15,7 @@ class Interface
 
     end
 
-    # welcome method should returning user or new user which leads to new attendee/newbooth or returning booth.new booth
+    # welcome method should return a user or new user which leads to new attendee/new booth or returning booth/new booth
 
     def booth_main_menu
         prompt.select("Welcome Booth Operator, what would you like to do today?" ) do |menu|
@@ -25,6 +25,7 @@ class Interface
             menu.choice "Number of Sales", -> {self.user.number_of_sales}
             menu.choice "Items Sold", -> {self.user.sales_made}
             menu.choice "Sales Revenue", -> {self.user.sales_revenue}
+            menu.choice "Exit", -> {exit!}
         end
     end
 
@@ -36,18 +37,9 @@ class Interface
             menu.choice "Visit Booths", ->{self.user.visit_booths}
             menu.choice "Return Item", -> {self.user.return_item}
             menu.choice "Total Spent", -> {self.user.total_spent}
+            menu.choice "Exit!", -> {exit!}
         end
     end
-
-    
-#somewhere in that method add purchases to attendee
-
-#ISSUE WHEN UPDATING INVENTORY 
-#couldn't add argument
-    # Welcome Booth Operator, what would you like to do today? update inventory
-    #     What item would you like to restock? Pokeball
-    #     How many are you adding to the inventory? 100
-
 
 
 end

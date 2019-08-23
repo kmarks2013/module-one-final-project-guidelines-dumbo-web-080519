@@ -9,8 +9,7 @@ cli.user = user_object
 system "clear"
 if user_object.class == Attendee
     cli.attendee_main_menu
-end
-if user_object.class == Booth
+elsif user_object.class == Booth
     cli.booth_main_menu
 end
 

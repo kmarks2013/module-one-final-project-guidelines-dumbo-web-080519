@@ -36,7 +36,7 @@ class Booth < ActiveRecord::Base
     
     def check_merchandise
        merchandise =  self.merchandises.map {|merchandise| merchandise.name }
-       puts merchandise 
+       puts merchandise        
        return merchandise
     end
     
