@@ -24,4 +24,4 @@ class Merchandise < ActiveRecord::Base
     end
 
 end
-#these methods were helper methods to build our further methods
+#these methods were developed to help us build our methods in ohter models

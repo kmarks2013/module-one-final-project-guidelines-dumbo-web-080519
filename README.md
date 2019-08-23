@@ -19,3 +19,7 @@
 
 ## License for Code
     https://github.com/kmarks2013/module-one-final-project-guidelines-dumbo-web-080519/settings/collaboration
+
+
+## Video Descirpiton
+##### [![Link to video description](https://img.youtube.com/vi/PyAXFqsX3_M/0.jpg)](https://youtu.be/PyAXFqsX3_M)
